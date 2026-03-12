@@ -14,7 +14,7 @@ export const userAuth = create((set) => ({
 
             // make api call
             let res = await axios.post("http://localhost:4000/common-api/login", userCredWithRole, { withCredentials: true })
-            console.log("res is ", res)
+            // console.log("res is ", res)
 
             // update state 
             set({
@@ -45,7 +45,7 @@ export const userAuth = create((set) => ({
             // update state
             set({
                 loading: false,
-                isAuthenticated: true,
+                isAuthenticated: false,
                 currentUser: null
             })
 

@@ -2,12 +2,14 @@ import { userAuth } from "../Store/authStore";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { NavLink } from "react-router";
+import { useNavigate } from "react-router";
 
 function UserProfile() {
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    const navigate = useNavigate();
     const logout = userAuth((state) => state.logout);
 
     // const navigate = useNavigate()
@@ -41,23 +43,37 @@ function UserProfile() {
         fetchArticles();
     }, []);
 
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>{error.message}</p>;
+    }
+
     return (
-        <div>
-            <button onClick={onLogout}>Logout</button>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-                <div className="border m-2 p-4 bg-gray-200">
-                    {articles.map((e) => (
-                        <div key={e._id}>
-                            <NavLink to="/article" state={e}>
-                                <p className="font-semibold">
-                                    Title: {e.title}
-                                </p>
-                                <p>Auhor: {e.author}</p>
-                                <p>Category: {e.category}</p>
-                            </NavLink>
-                        </div>
-                    ))}
-                </div>
+        <div className="min-h-screen w-full bg-gradient-to-br from-[#42BAF0] to-[#EEABE3]">
+            <div className="flex flex-col items-end">
+                <button
+                    onClick={onLogout}
+                    className="items-end border rounded px-3 m-3 pointer bg-red-500 hover:opacity-70 cursor-pointer"
+                >
+                    Logout
+                </button>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 text-white">
+                {articles.map((e) => (
+                    <NavLink
+                        to="/article"
+                        state={e}
+                        key={e._id}
+                        className="border m-2 p-4 bg-gray-200 bg-gradient-to-br from-indigo-950 via-slate-900 to-black hover:border-orange-700"
+                    >
+                        <p className="font-semibold">Title: {e.title}</p>
+                        <p>Auhor: {e.author}</p>
+                        <p>Category: {e.category}</p>
+                    </NavLink>
+                ))}
             </div>
         </div>
     );
