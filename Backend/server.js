@@ -6,6 +6,7 @@ import { authorApp } from './APIs/AuthorAPI.js'
 import { adminApp } from './APIs/AdminAPI.js'
 import cookieParser from "cookie-parser"
 import { commonRout } from "./APIs/CommonAPI.js"
+import cors from 'cors'
 
 
 config()
@@ -13,6 +14,9 @@ config()
 
 
 const app = exp();
+
+// credentials is to allow the cookies to the browser from cross origin -> server sends the cookie to frontend
+app.use(cors({ origin: ["http://localhost:5173"], credentials: true }))
 
 app.use(exp.json());
 

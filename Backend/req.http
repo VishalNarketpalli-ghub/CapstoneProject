@@ -24,7 +24,7 @@ Content-Type: application/json
 
 
 ### read all articles for user
-GET http://localhost:4000/user-api/user/69aeeaa0a54ded8516c4ea94
+GET http://localhost:4000/user-api/user
 
 
 
@@ -76,8 +76,8 @@ Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWFlOTIxNDFiO
 {
     "author" : "69ae92141b905bf3821f53d3",
     "title": "####",
-    "category" : "horror",
-    "content" : "the article is consisting ghost story"
+    "category" : "horror",+
+    "content" : "the article is consisting ghost story, this i what you see in the backend, hell with this typing i dont wana waste time on this, the more i build i more i learn"
 }
 
 

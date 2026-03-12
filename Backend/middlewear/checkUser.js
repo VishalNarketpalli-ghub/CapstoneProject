@@ -14,7 +14,7 @@ export const checkUser = async (req, res, next) => {
     }
 
     // check if user role is user
-    if (userObj.role != "USERS") {
+    if (userObj.role != "USER") {
         return res.status(401).json({ message: "Invalid role for user" })
     }
 

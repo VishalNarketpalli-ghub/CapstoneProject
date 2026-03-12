@@ -1,0 +1,61 @@
+import { create } from 'zustand'
+import axios from 'axios'
+
+
+export const userAuth = create((set) => ({
+    currentUser: null,
+    isAuthenticated: false,
+    loading: false,
+    error: null,
+    login: async (userCredWithRole) => {
+        try {
+            // set loading true
+            set({ loading: true, error: null })
+
+            // make api call
+            let res = await axios.post("http://localhost:4000/common-api/login", userCredWithRole, { withCredentials: true })
+            console.log("res is ", res)
+
+            // update state 
+            set({
+                loading: false,
+                isAuthenticated: true,
+                currentUser: res.data.payload
+            })
+        } catch (error) {
+            console.log("err is ", error)
+            set({
+                loading: false,
+                isAuthenticated: false,
+                currentUser: null,
+                // error: error
+                error: error.response?.data.error || "Login failed"
+            })
+        }
+
+    },
+    logout: async () => {
+        try {
+            // set loading state
+            set({ loading: true, error: null })
+
+            // make logout api req
+            await axios.get("http://localhost:4000/common-api/logout", { withCredentials: true })
+
+            // update state
+            set({
+                loading: false,
+                isAuthenticated: true,
+                currentUser: null
+            })
+
+        } catch (error) {
+            console.log("err is ", error)
+            set({
+                loading: false,
+                isAuthenticated: false,
+                currentUser: null
+            })
+        }
+    }
+}))

@@ -14,7 +14,7 @@ userRoute.post('/users', async (req, res) => {
     let userObj = req.body
 
     //call register function
-    const newUserObj = await register({ ...userObj, role: "USERS" })
+    const newUserObj = await register({ ...userObj, role: "USER" })
 
     //send response
     res.status(201).json({ message: "User created", payload: newUserObj })
@@ -22,7 +22,7 @@ userRoute.post('/users', async (req, res) => {
 
 
 // read all articles
-userRoute.get('/user/:uid', verifyToken("USERS"), async (req, res) => {
+userRoute.get('/user', verifyToken("USER"), async (req, res) => {
 
     // check for valid user is done by middlewear   
 
@@ -36,7 +36,7 @@ userRoute.get('/user/:uid', verifyToken("USERS"), async (req, res) => {
 
 
 // add comment to an article
-userRoute.post('/users-comment', verifyToken("USERS"), async (req, res) => {
+userRoute.post('/users-comment', verifyToken("USER"), async (req, res) => {
     // retreive uid, articleId, Comment from body
     let { uid, articleId, comment } = req.body
 

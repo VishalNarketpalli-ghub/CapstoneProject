@@ -22,7 +22,7 @@ const UserSchema = new Schema({
     },
     role: {
         type: String,
-        enum: ["AUTHOR", "USERS", "ADMIN"],
+        enum: ["AUTHOR", "USER", "ADMIN"],
         required: [true, "{Value} is an invalid rout"]
     },
     isActive: {
